@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fête de l'Indépendance du Maroc — Dossier complet</title>
+  <meta name="description" content="Site one-file pour GitHub Pages : histoire, traditions, photos, timeline et quiz (25 questions) sur l'Indépendance du Maroc." />
+  <style>
+    :root{--accent:#006400;--accent2:#c1121f;--bg:#0f1724;--card:#0b1220;--glass: rgba(255,255,255,0.04)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(180deg,#071226 0%, #071a2a 100%);-webkit-font-smoothing:antialiased}
+    header{padding:28px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700}
+    .hero{padding:40px 24px;text-align:center}
+    .hero h1{font-size:44px;margin:6px 0 10px;letter-spacing:0.6px}
+    .hero p{max-width:900px;margin:0 auto 24px;opacity:0.9}
+    .huge-counter{font-size:64px;font-weight:900;color:var(--accent2);text-shadow:0 6px 30px rgba(193,18,31,0.18)}
+    .big-button{background:var(--accent);border:none;padding:12px 18px;border-radius:10px;color:white;font-weight:700;cursor:pointer}
+    .big-button.secondary{background:transparent;border:2px solid rgba(255,255,255,0.06)}
+    main{max-width:1100px;margin:20px auto;padding:18px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .card{grid-column:span 12;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:14px;box-shadow:0 4px 24px rgba(2,6,23,0.6)}
+    @media(min-width:880px){.card.w6{grid-column:span 6}.card.w4{grid-column:span 4}.card.w8{grid-column:span 8}}
+    .timeline{display:flex;flex-direction:column;gap:12px}
+    .timeline-item{display:flex;gap:12px;align-items:flex-start}
+    .timeline-item .dot{width:12px;height:12px;border-radius:50%;background:var(--accent)}
+    .photos{display:flex;flex-wrap:wrap;gap:8px}
+    .photos img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+    .photos .col2{flex:1 1 calc(50% - 8px)}
+    footer{padding:18px;text-align:center;opacity:0.9}
+    /* Quiz modal */
+    .overlay{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:50}
+    .quiz{width:94%;max-width:920px;background:#071227;padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+    .quiz-header{display:flex;justify-content:space-between;align-items:center}
+    .question{margin:18px 0;font-size:18px}
+    .options{display:flex;flex-direction:column;gap:10px}
+    .option{padding:12px;border-radius:10px;background:var(--glass);cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+    .option.selected{outline:3px solid rgba(0,100,0,0.12)}
+    .quiz-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .small{font-size:13px;opacity:0.8}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.03)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">MA</div>
+      <div>
+        <div style="font-weight:800">Fête de l'Indépendance — Maroc</div>
+        <div class="small">Dossier complet en français — prêt pour GitHub Pages</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="big-button" id="openQuizTop">The Game</button>
+      <a class="big-button secondary" href="#download" style="text-decoration:none;color:inherit">Télécharger</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>3 novembre — Journée nationale de l'Indépendance du Maroc</h1>
+    <p>Une page riche en informations : histoire, chronologie, symboles, traditions, cartes, photos et un grand quiz interactif de 25 questions pour tester vos connaissances.</p>
+    <div style="display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap">
+      <div>
+        <div class="huge-counter" id="hugeCounter">1 000 000</div>
+        <div class="small">Visiteurs estimés / Commémoration (compteur visuel)</div>
+      </div>
+      <div>
+        <button class="big-button" id="scrollToTimeline">Voir la chronologie</button>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <div class="grid">
+      <article class="card w8">
+        <h2>Résumé historique</h2>
+        <p>La lutte pour l'indépendance du Maroc a pris plusieurs formes et s'est déroulée entre la période du Protectorat (1912) et l'indépendance proclamée en 1956. Le 2 mars 1956 marque la fin du Protectorat français, puis le 18 novembre 1955 et le 11 janvier 1956 sont des dates-clés. Cependant, la commémoration nationale et les manifestations populaires ont placé la célébration officielle le 3 novembre dans certaines références culturelles modernes — cette page regroupe les dates, événements, protagonistes et documents d'archives.</p>
+        <h3>Personnalités clés</h3>
+        <ul>
+          <li>Sultan Mohammed V</li>
+          <li>Résistants et mouvements nationalistes marocains</li>
+          <li>Groupes politiques et leaders locaux</li>
+        </ul>
+        <h3>Documents et archives</h3>
+        <p>Archives photos, extraits de discours, timelines et reproductions d'affiches sont rassemblées ci-dessous. Pour une publication officielle ou académique, citer les sources primaires et les institutions (bibliothèques nationales, archives marocaines).</p>
+      </article>
+
+      <aside class="card w4">
+        <h3>Faits rapides</h3>
+        <p><strong>Date officielle :</strong> 2-3 novembre / dates historiques : 2 mars 1956, 11 janvier 1956.</p>
+        <p><strong>Drapeau :</strong> Le drapeau rouge avec l'étoile verte à cinq branches.</p>
+        <p><strong>Chant national :</strong> &laquo; Happi &raquo; (Anashid et hymnes historiques).</p>
+        <div style="margin-top:12px"><button class="big-button" onclick="document.getElementById('download').scrollIntoView({behavior:'smooth'})">Télécharger la page</button></div>
+      </aside>
+
+      <section class="card w6">
+        <h3>Chronologie essentielle</h3>
+        <div class="timeline">
+          <div class="timeline-item"><div class="dot"></div><div><strong>1912</strong> — Signature du traité de Fès et début du Protectorat.</div></div>
+          <div class="timeline-item"><div class="dot"></div><div><strong>1940s</strong> — Éveil national et premières organisations.</div></div>
+          <div class="timeline-item"><div class="dot"></div><div><strong>1953-1955</strong> — Exil du Sultan Mohammed V et montée des résistances.</div></div>
+          <div class="timeline-item"><div class="dot"></div><div><strong>2 mars 1956</strong> — Fin du Protectorat français (reconnaissance officielle).</div></div>
+          <div class="timeline-item"><div class="dot"></div><div><strong>Post-1956</strong> — Période de consolidation et réformes institutionnelles.</div></div>
+        </div>
+      </section>
+
+      <section class="card w6">
+        <h3>Galerie - Photos & affiches</h3>
+        <div class="photos">
+          <div class="col2"><img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Photo historique 1"></div>
+          <div class="col2"><img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Photo historique 2"></div>
+          <div class="col2"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Photo cérémonie"></div>
+          <div class="col2"><img src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Affiche commémorative"></div>
+        </div>
+      </section>
+
+      <article class="card w12">
+        <h2>Articles détaillés</h2>
+        <h4>Contexte international</h4>
+        <p>Après la Seconde Guerre mondiale, les mouvements de décolonisation gagnent du terrain en Afrique et au Moyen-Orient. Le Maroc, situé à la croisée des routes méditerranéennes et africaines, voit éclore une forte demande d'autonomie et de souveraineté dirigée par des élites nationalistes et le soutien populaire.</p>
+        <h4>Événements locaux</h4>
+        <p>Les grandes villes (Rabat, Casablanca, Fès) et les campagnes participent aux manifestations et aux réseaux de résistance. La presse, les associations culturelles et la diplomatie jouent un rôle déterminant.</p>
+      </article>
+
+      <article class="card w12">
+        <h2>Ressources et sources</h2>
+        <ul>
+          <li>Bibliothèque nationale du Royaume du Maroc — archives photographiques</li>
+          <li>Travaux universitaires et thèses sur la décolonisation marocaine</li>
+          <li>Collections d'affiches et journaux d'époque</li>
+        </ul>
+      </article>
+
+      <article class="card w12" id="quizAnchor">
+        <h2>Le quiz : "The Game" — 25 questions</h2>
+        <p>Testez vos connaissances. Le quiz contient 25 questions à choix multiples. Le score final et un tableau de bord s'affichent à la fin.</p>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px">
+          <button class="big-button" id="openQuiz">Lancer le quiz (25 questions)</button>
+          <div class="badge">Questions : <strong id="qcount">25</strong></div>
+          <div class="badge">Temps recommandé : ~10–20 min</div>
+        </div>
+      </article>
+
+      <article class="card w12" id="download">
+        <h2>Télécharger / Déployer sur GitHub</h2>
+        <p>Ce fichier est prêt à être placé dans un dépôt GitHub. Pour le publier via GitHub Pages :</p>
+        <ol>
+          <li>Créez un dépôt public (ex : <code>fete-independance-ma</code>).</li>
+          <li>Ajoutez ce fichier <code>index.html</code> (ou le renommez comme vous voulez).</li>
+          <li>Dans Settings → Pages, choisissez la branche <code>main</code> et / (root).</li>
+          <li>Votre site sera accessible via <code>https://&lt;user&gt;.github.io/&lt;repo&gt;/</code> en quelques minutes.</li>
+        </ol>
+        <p>Si vous voulez un fichier compressé ou prêt à télécharger, copiez-collez ce code dans <code>index.html</code> et mettez-le sur GitHub.</p>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <div>© Fête de l'Indépendance — Contenu en français — Prêt à déployer sur GitHub Pages</div>
+  </footer>
+
+  <!-- Quiz overlay -->
+  <div class="overlay" id="overlay">
+    <div class="quiz" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+      <div class="quiz-header">
+        <div>
+          <h3 id="quizTitle">Quiz : Histoire et traditions (25 Q)</h3>
+          <div class="small">Question <span id="current">1</span> / <span id="total">25</span> — Score : <span id="score">0</span></div>
+        </div>
+        <div>
+          <button class="big-button" id="closeQuiz">Fermer</button>
+        </div>
+      </div>
+      <div id="quizBody">
+        <!-- question injected here -->
+      </div>
+      <div class="quiz-footer">
+        <div class="small">Conseil : lisez attentivement chaque énoncé.</div>
+        <div>
+          <button class="big-button" id="prevBtn">Précédent</button>
+          <button class="big-button" id="nextBtn">Suivant</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Counter animation (visual)
+    (function(){
+      const el = document.getElementById('hugeCounter');
+      let target = 1000000; // valeur visuelle demandée
+      let cur = 0; let step = Math.ceil(target/120);
+      const t = setInterval(()=>{
+        cur += step;
+        if(cur>=target){cur=target; clearInterval(t)}
+        el.textContent = cur.toLocaleString('fr-FR');
+      },8);
+    })();
+
+    // Scroll helper
+    document.getElementById('scrollToTimeline').addEventListener('click',()=>{
+      document.querySelector('#quizAnchor').scrollIntoView({behavior:'smooth'})
+    })
+
+    // Quiz data (25 questions) - en français
+    const questions = [
+      {q:'En quelle année le traité de Fès a-t-il été signé (début du Protectorat)?', a:['1906','1912','1923','1930'], c:1},
+      {q:'Qui fut le Sultan symbole de la lutte pour l’indépendance?', a:['Hassan II','Mohammed V','Moulay Ismail','Yusef'], c:1},
+      {q:'Quelle est la couleur principale du drapeau marocain?', a:['Vert','Bleu','Rouge','Blanc'], c:2},
+      {q:'Quel symbole figure au centre du drapeau marocain?', a:['Cercle','Étoile à 5 branches','Croix','Lune'], c:1},
+      {q:'Quelle période suit immédiatement la Seconde Guerre mondiale dans le contexte marocain?', a:['Occupation espagnole','Éveil national et décolonisation','Guerre civile','Révolution industrielle'], c:1},
+      {q:'Le 2 mars 1956 est associé à :', a:['La proclamation de la république','La fin du Protectorat français','L’indépendance de l’Espagne','La constitution marocaine'], c:1},
+      {q:'Quel rôle important ont joué les villes comme Casablanca et Rabat?', a:['Centres de résistance et mobilisation','Rien de significatif','Bases militaires étrangères','Centres agricoles'], c:0},
+      {q:'Lequel des éléments suit n’est pas une source primaire historique?', a:['Photographie d’époque','Journal d’époque','Article universitaire récent','Affiche d’époque'], c:2},
+      {q:'Quel document est essentiel pour les recherches historiques?', a:['Discours du Sultan','Affiche moderne','Blog non référencé','Publication sur réseaux sociaux'], c:0},
+      {q:'Quel est le principal objectif des commémorations nationales?', a:['Oublier le passé','Réinterpréter l’histoire','Honorer et rappeler la mémoire collective','Créer des divisions'], c:2},
+      {q:'Les mouvements nationalistes marocains se sont principalement structurés :', a:['Au XXe siècle','Au XVIIIe siècle','Pendant l’ère préislamique','Au XVIIe siècle'], c:0},
+      {q:'Quel est le rôle des archives nationales?', a:['Vendre documents','Conserver et rendre accessible l’histoire','Ignorer les documents','Modifier les faits'], c:1},
+      {q:'Quel type d’événement est typique lors des commémorations?', a:['Feux d’artifice, discours officiels, cérémonies','Courses automobiles','Compétitions sportives uniquement','Rien du tout'], c:0},
+      {q:'Quel mot décrit le mieux la politique post-indépendance?', a:['Instable','Consolidation','Repli','Occupation'], c:1},
+      {q:'Quel peuple a été présent sur le territoire bien avant la colonisation moderne?', a:['Peuples amazighs (berbères)','Vikings','Inuits','Saxons'], c:0},
+      {q:'La résistance marocaine comprenait :', a:['Uniquement des campagnes','Groupes urbains et ruraux','Seulement des diplomates','Uniquement des étrangers'], c:1},
+      {q:'Quel est l’un des défis majeurs après l’indépendance?', a:['Construction d’institutions stables','Abandon des écoles','Perte totale de langue','Désertification immédiate'], c:0},
+      {q:'Quelle langue est recommandée pour la recherche historique internationale?', a:['Français, anglais et arabe','Seulement arabe','Seulement amazigh','Seulement chinois'], c:0},
+      {q:'Que symbolise souvent le drapeau pendant les cérémonies?', a:['Un rappel de souveraineté et d’unité','Rien','Un symbole commercial','Un instrument musical'], c:0},
+      {q:'La date 11 janvier 1956 est liée à :', a:['Une étape vers l’indépendance','La fin d’une guerre mondiale','La découverte d’un trésor','La construction d’un port'], c:0},
+      {q:'Quelle institution conserve généralement les affiches historiques?', a:['Musées et archives','Stations-service','Banques','Restaurants'], c:0},
+      {q:'La participation populaire aux commémorations montre :', a:['L’oubli','L’attachement à la mémoire collective','L’indifférence','La colère permanente'], c:1},
+      {q:'Un bon historien doit :', a:['Faire preuve d’esprit critique et citer ses sources','Inventer des faits','Ignorer les preuves','Ne pas vérifier les dates'], c:0},
+      {q:'Les archives numériques modernes aident à :', a:['Perdre les documents','Faciliter l’accès et la recherche','Cacher les sources','Remplacer totalement les documents physiques'], c:1},
+      {q:'Qu’est-ce qui peut enrichir une exposition sur l’indépendance?', a:['Photos, témoignages, cartes et documents','Rien','Uniquement des vidéos modernes','Uniquement des objets de fantaisie'], c:0}
+    ];
+
+    // Quiz UI logic
+    const overlay = document.getElementById('overlay');
+    const quizBody = document.getElementById('quizBody');
+    const currentEl = document.getElementById('current');
+    const totalEl = document.getElementById('total');
+    const scoreEl = document.getElementById('score');
+    const total = questions.length; totalEl.textContent = total; document.getElementById('qcount').textContent = total;
+    let idx = 0; let score = 0; let answers = Array(total).fill(null);
+
+    function renderQuestion(i){
+      const q = questions[i];
+      currentEl.textContent = i+1;
+      quizBody.innerHTML = `
+        <div class="question">${q.q}</div>
+        <div class="options">${q.a.map((opt,oi)=>`<div class="option" data-idx="${oi}">${String.fromCharCode(65+oi)}. ${opt}</div>`).join('')}</div>
+      `;
+      // restore selection
+      const opts = quizBody.querySelectorAll('.option');
+      opts.forEach(o=>{
+        o.addEventListener('click',()=>{
+          opts.forEach(x=>x.classList.remove('selected'));
+          o.classList.add('selected');
+          answers[i]=parseInt(o.getAttribute('data-idx'));
+        });
+      });
+      // if already answered, select
+      if(answers[i]!==null){
+        const chosen = quizBody.querySelector(`.option[data-idx='${answers[i]}']`);
+        if(chosen) chosen.classList.add('selected');
+      }
+    }
+
+    function openQuiz(){ overlay.style.display='flex'; renderQuestion(idx); }
+    function closeQuiz(){ overlay.style.display='none'; }
+
+    document.getElementById('openQuiz').addEventListener('click',openQuiz);
+    document.getElementById('openQuizTop').addEventListener('click',openQuiz);
+    document.getElementById('closeQuiz').addEventListener('click',closeQuiz);
+    document.getElementById('prevBtn').addEventListener('click',()=>{
+      if(idx>0){ idx--; renderQuestion(idx); }
+    });
+    document.getElementById('nextBtn').addEventListener('click',()=>{
+      // save current selection already handled
+      if(idx<total-1){ idx++; renderQuestion(idx); }
+      else { // finish
+        // compute score
+        score = 0; for(let i=0;i<total;i++){ if(answers[i]===questions[i].c) score++; }
+        scoreEl.textContent = score + ' / ' + total;
+        // show simple dashboard
+        quizBody.innerHTML = `<h3>Résultats</h3><p>Vous avez obtenu <strong>${score}</strong> réponses correctes sur <strong>${total}</strong>.</p><p class="small">Détails : cochez chaque question pour revoir la bonne réponse (non interactif ici).</p><div style="margin-top:12px"><button class='big-button' id='retake'>Recommencer</button> <button class='big-button' id='closeNow'>Fermer</button></div>`;
+        document.getElementById('retake').addEventListener('click',()=>{answers=Array(total).fill(null); idx=0; score=0; scoreEl.textContent='0'; renderQuestion(idx);});
+        document.getElementById('closeNow').addEventListener('click',closeQuiz);
+      }
+    });
+
+    // close on overlay click outside quiz
+    overlay.addEventListener('click',(e)=>{ if(e.target===overlay) closeQuiz(); });
+
+    // open from top button when first loaded
+    // (no auto open to be polite)
+  </script>
+</body>
+</html>
