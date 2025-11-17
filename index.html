@@ -1,252 +1,210 @@
-<!doctype html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dossier officiel — Fête de l'Indépendance du Maroc</title>
-  <meta name="description" content="Dossier professionnel et pédagogique en français sur l'indépendance du Maroc. Contenu factuel, chronologie, références et quiz pédagogique (25 questions)." />
-  <style>
-    :root{--bg:#ffffff;--text:#0b1220;--accent:#c1121f;--muted:#6b7280;--card:#f8fafc}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
-    header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid #eef2f7;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;z-index:40}
-    .brand{display:flex;align-items:center;gap:14px}
-    .logo-square{width:54px;height:54px;border-radius:8px;background:linear-gradient(135deg,#ffffff,#f3f4f6);display:flex;align-items:center;justify-content:center;border:2px solid var(--accent);font-weight:800;color:var(--accent)}
-    main{max-width:1000px;margin:28px auto;padding:0 20px}
-    h1{font-size:28px;margin:6px 0}
-    .lead{color:var(--muted);margin-bottom:18px}
-    .grid{display:grid;grid-template-columns:1fr;gap:18px}
-    @media(min-width:900px){.grid{grid-template-columns:2fr 1fr}}
-    .card{background:var(--card);padding:18px;border-radius:10px;border:1px solid #eef2f7}
-    .small{font-size:13px;color:var(--muted)}
-    .timeline{display:flex;flex-direction:column;gap:10px}
-    .timeline-item{padding:10px;border-left:4px solid #e6eef8;background:#fff;border-radius:6px}
-    footer{padding:24px;text-align:center;color:var(--muted);font-size:13px}
-    /* Admin splash */
-    .splash{position:fixed;inset:0;background:linear-gradient(180deg,rgba(17,24,39,0.96),rgba(255,255,255,0.95));display:flex;align-items:center;justify-content:center;z-index:80}
-    .splash-card{background:#fff;padding:28px;border-radius:12px;box-shadow:0 8px 40px rgba(2,6,23,0.12);max-width:720px;width:92%;text-align:center}
-    .splash-logo{font-size:36px;font-weight:900;color:var(--accent);margin-bottom:6px}
-    .splash-admin{font-size:18px;color:var(--text);margin-bottom:16px}
-    .btn{display:inline-block;padding:10px 16px;border-radius:8px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer}
-    .btn.secondary{background:transparent;border:1px solid #e6eef8;color:var(--text)}
-    /* Quiz */
-    .quiz-list{display:flex;flex-direction:column;gap:8px}
-    .question-row{padding:12px;border-radius:8px;background:#fff;border:1px solid #eef2f7}
-    .options{display:flex;flex-direction:column;gap:8px;margin-top:8px}
-    .option{padding:10px;border-radius:8px;border:1px solid #eef2f7;cursor:pointer}
-    .option.selected{outline:3px solid rgba(193,18,31,0.12)}
-    .dashboard{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-    .badge{padding:8px 12px;border-radius:8px;background:#fff;border:1px solid #eef2f7}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RezOS Professional Portal</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        transition: background 0.4s, color 0.4s;
+        background: #f5f5f5;
+        color: #222;
+    }
+    .dark-mode {
+        background: #121212;
+        color: #fff;
+    }
+    header {
+        width: 100%;
+        padding: 20px;
+        background: linear-gradient(90deg, #c8102e, #008000);
+        color: white;
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    #admin-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 1s;
+        z-index: 9999;
+    }
+    #admin-box {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        animation: pop 0.7s;
+    }
+    #admin-box h1 {
+        font-size: 40px;
+        animation: pulse 2s infinite;
+        color: #c8102e;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes pop {
+        from { transform: scale(0.5); } to { transform: scale(1); }
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    button {
+        padding: 12px 22px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        background: #008000;
+        color: white;
+        cursor: pointer;
+    }
+    #themeToggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 18px;
+        background: #333;
+        color: #fff;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .container {
+        padding: 30px;
+        max-width: 900px;
+        margin: auto;
+    }
+    .flag {
+        width: 100%;
+        height: 180px;
+        background: url('maroc_flag_placeholder.jpg') center/cover no-repeat;
+        border-radius: 12px;
+        margin-bottom: 25px;
+    }
+    .quiz-box {
+        background: #fff;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        margin-top: 30px;
+    }
+    .dark-mode .quiz-box { background: #1e1e1e; }
+</style>
 </head>
 <body>
-  <div class="splash" id="splash">
-    <div class="splash-card">
-      <div class="splash-logo">Fête de l'Indépendance — ADMIN</div>
-      <div class="splash-admin">Site préparé par : <strong>Wael</strong> &amp; <strong>Anas</strong></div>
-      <div class="small" style="margin-bottom:18px">Contenu pédagogique et professionnel — cliquez sur OK pour entrer sur le site.</div>
-      <div style="display:flex;gap:12px;justify-content:center">
-        <button class="btn" id="enterSite">OK — Entrer</button>
-        <button class="btn secondary" id="skipSite">Voir sommaire</button>
-      </div>
+
+<div id="admin-popup">
+    <div id="admin-box">
+        <h1>ADMIN • Wael & Anas</h1>
+        <button onclick="closePopup()">OK</button>
     </div>
-  </div>
+</div>
 
-  <header>
-    <div class="brand">
-      <div class="logo-square">MA</div>
-      <div>
-        <div style="font-weight:800">Dossier officiel — Indépendance du Maroc</div>
-        <div class="small">Document pédagogique — français</div>
-      </div>
+<header>RezOS • Professional Educational Portal</header>
+
+<div class="container">
+
+    <div class="flag" style="background:url('https://source.unsplash.com/1600x500/?morocco,flag') center/cover no-repeat;"></div>
+
+    <h2>Information About Morocco</h2>
+    <p>Morocco is a North African country known for its rich culture, deep history, and strong national identity. The country stretches from the Mediterranean Sea to the Atlantic Ocean and includes diverse landscapes such as mountains, deserts, and historical cities.</p>
+
+    <p>Morocco's independence was officially declared on <b>18 November 1956</b>, marking the end of the French protectorate. This day is now celebrated annually as the <b>Fête de l'Indépendance</b>.</p>
+
+    <h3>General Information</h3>
+    <ul>
+        <li><b>Capital:</b> Rabat</li>
+        <li><b>Largest City:</b> Casablanca</li>
+        <li><b>Languages:</b> Arabic & Tamazight (official)</li>
+        <li><b>Independence:</b> 18 November 1956</li>
+        <li><b>Currency:</b> Moroccan Dirham (MAD)</li>
+        <li><b>Government:</b> Constitutional Monarchy</li>
+        <li><b>King:</b> Mohammed VI</li>
+    </ul>
+
+    <h3>Historical Facts About Morocco’s Independence</h3>
+    <p>The Moroccan independence movement began long before 1956. Nationalists fought politically and diplomatically to end foreign rule. Sultan Mohammed V played a major role in unifying the people and negotiating freedom.</p>
+
+    <ul>
+        <li>1912 – Beginning of the French Protectorate.</li>
+        <li>1930 – The Berber Dahir increases national resistance.</li>
+        <li>1944 – Independence Manifesto signed.</li>
+        <li>1953 – Exile of Sultan Mohammed V, causing nationwide uprisings.</li>
+        <li>1955 – Return of Sultan Mohammed V.</li>
+        <li>1956 – Official Independence of Morocco.</li>
+    </ul>
+
+    <h3>Key Figures</h3>
+    <ul>
+        <li><b>Mohammed V:</b> Father of Moroccan Independence.</li>
+        <li><b>Hassan II:</b> Leader who modernized Morocco after independence.</li>
+        <li><b>Allal El Fassi:</b> Leader of the Istiqlal Party.</li>
+        <li><b>Ahmed Balafrej:</b> Key diplomat during negotiations.</li>
+    </ul>
+
+    <section class="mt-10 p-6 bg-white/10 rounded-2xl shadow-xl">
+<h2 class="text-3xl font-bold mb-4">More About Morocco</h2>
+<p class="mb-4">Morocco is known for its long history, diverse cultures, and strong national identity. Cities like Marrakech, Fez, and Tangier hold centuries of stories, while the Moroccan Sahara remains one of the most iconic landscapes in the world.</p>
+<ul class="list-disc pl-6 mb-6">
+<li>Capital: Rabat</li>
+<li>Largest City: Casablanca</li>
+<li>Currency: Moroccan Dirham (MAD)</li>
+<li>Independence Day: 18 November 1956</li>
+<li>King: His Majesty King Mohammed VI</li>
+</ul>
+</section>
+
+<h2>Professional Quiz</h2>
+    <div class="quiz-box">
+        <p><b>1. What is the capital of Morocco?</b></p>
+        <button onclick="answer(1,'Rabat')">Rabat</button>
+        <button onclick="answer(1,'Casablanca')">Casablanca</button>
+        <button onclick="answer(1,'Fes')">Fes</button>
+
+        <p><b>2. When did Morocco gain independence?</b></p>
+        <button onclick="answer(2,'1956')">1956</button>
+        <button onclick="answer(2,'1960')">1960</button>
+        <button onclick="answer(2,'1940')">1940</button>
+
+        <p><b>3. What is the currency of Morocco?</b></p>
+        <button onclick="answer(3,'MAD')">MAD</button>
+        <button onclick="answer(3,'Dollar')">Dollar</button>
+        <button onclick="answer(3,'Euro')">Euro</button>
+
+        <p><b>Final Score:</b> <span id="score">0</span>/3</p>
     </div>
-    <div style="display:flex;gap:12px;align-items:center">
-      <button class="btn" id="openQuizTop">Démarrer le quiz</button>
-    </div>
-  </header>
+</div>
 
-  <main>
-    <div class="grid">
-      <section class="card">
-        <h1>Présentation</h1>
-        <p class="lead">Ce dossier offre un aperçu professionnel, objectif et référençable sur la lutte pour l'indépendance du Maroc. Il est conçu pour un usage pédagogique (enseignants, étudiants) et comprend : historique détaillé, chronologie précise, références et un quiz pédagogique de 25 questions avec correction et tableau de bord finale.</p>
+<div id="themeToggle" onclick="toggleTheme()">Dark/Light</div>
 
-        <h3>Résumé synthétique</h3>
-        <p>Le Maroc, soumis au Protectorat français à partir de 1912 et à des zones d'influence espagnole, a vu se développer des mouvements nationalistes tout au long du XXe siècle. Les événements clés autour de 1955–1956, incluant le retour du Sultan Mohammed V et la reconnaissance progressive de l'indépendance, ont conduit à la fin du Protectorat français et à la mise en place des institutions souveraines.</p>
+<script>
+let score = 0;
+function answer(q, a) {
+    if (q === 1 && a === 'Rabat') score++;
+    if (q === 2 && a === '1956') score++;
+    if (q === 3 && a === 'MAD') score++;
+    document.getElementById('score').innerText = score;
+}
 
-        <h3>Dates essentielles</h3>
-        <div class="timeline">
-          <div class="timeline-item"><strong>30 mars 1912</strong> — Traités de Fès et établissement du Protectorat.</div>
-          <div class="timeline-item"><strong>1953</strong> — Exil du Sultan Mohammed V (phase critique qui renforce le mouvement national).</div>
-          <div class="timeline-item"><strong>11 janvier 1956</strong> — Signature de conventions entre la France et le Maroc préparant l'indépendance.</div>
-          <div class="timeline-item"><strong>2 mars 1956</strong> — Reconnaissance effective de l'indépendance vis-à-vis de la France (dates officielles varient selon sources).</div>
-        </div>
+function closePopup() {
+    document.getElementById('admin-popup').style.display = 'none';
+}
 
-        <h3>Sources et références conseillées</h3>
-        <ul>
-          <li>Bibliothèque nationale du Royaume du Maroc — collections historiques</li>
-          <li>Travaux universitaires sur la décolonisation nord-africaine</li>
-          <li>Archives diplomatiques françaises (séries coloniales)</li>
-        </ul>
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+}
+</script>
 
-        <h3>Usage pédagogique</h3>
-        <p>Le contenu est formaté pour être utilisé en classe : sections claires, questions à choix multiple, corrections et export des résultats pour archivage local.</p>
-      </section>
-
-      <aside class="card">
-        <h3>Faits rapides</h3>
-        <p class="small"><strong>Symboles nationaux :</strong> drapeau rouge à l'étoile verte à cinq branches — hymne et emblèmes officiels.</p>
-        <p class="small"><strong>Langues :</strong> arabe, amazigh, français (usage académique et archives).</p>
-        <div style="margin-top:12px" class="small">Ce dossier est prêt à être placé sur GitHub Pages. Le fichier est unique (HTML) et adapté à une utilisation professionnelle.</div>
-      </aside>
-
-      <section class="card" id="quizAnchor">
-        <h2>Quiz pédagogique — 25 questions</h2>
-        <p class="small">Toutes les questions sont formulées en français académique. Les réponses sont évaluées à la fin ; un tableau récapitulatif affiche pour chaque question votre réponse et la réponse correcte.</p>
-        <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-          <button class="btn" id="openQuiz">Lancer le quiz (25 Q)</button>
-          <div class="badge">Questions : <strong id="qcount">25</strong></div>
-          <div class="badge">Export des résultats disponible</div>
-        </div>
-      </section>
-
-      <section class="card">
-        <h3>Annexes — Informations complémentaires</h3>
-        <p>Pour enrichir le dossier : extraits de discours, lettres officielles, statistiques démographiques de l'époque, cartes politiques et études comparatives avec d'autres mouvements de décolonisation méditerranéens. Les enseignants peuvent utiliser les questions du quiz en évaluation formative.</p>
-        <p class="small">Si vous souhaitez, je peux générer un PDF pédagogique, un fichier prêt à imprimer pour classe, ou un pack ZIP contenant ce site plus un README. Dites juste quel format vous préférez.</p>
-      </section>
-    </div>
-  </main>
-
-  <footer>
-    <div>© Dossier officiel — Indépendance du Maroc — Contenu pédagogique</div>
-  </footer>
-
-  <!-- Quiz modal (professionnel) -->
-  <div class="overlay" id="overlay" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(11,18,32,0.6);z-index:60">
-    <div style="background:#fff;padding:22px;border-radius:12px;max-width:880px;width:94%;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div>
-          <h3 id="quizTitle" style="margin:0">Quiz — Connaissances historiques</h3>
-          <div class="small">Question <span id="current">1</span> / <span id="total">25</span> — Score : <span id="score">0</span></div>
-        </div>
-        <div><button class="btn" id="closeQuiz">Fermer</button></div>
-      </div>
-      <div id="quizBody"></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-        <div class="small">Conseil : répondre honnêtement pour une évaluation formative.</div>
-        <div>
-          <button class="btn secondary" id="prevBtn">Précédent</button>
-          <button class="btn" id="nextBtn">Suivant</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Splash logic
-    const splash = document.getElementById('splash');
-    document.getElementById('enterSite').addEventListener('click',()=>{ splash.style.display='none'; });
-    document.getElementById('skipSite').addEventListener('click',()=>{ splash.style.display='none'; document.querySelector('main').scrollIntoView({behavior:'smooth'}); });
-
-    // Quiz data -- 25 questions en français, formulation académique
-    const questions = [
-      {q:'En quelle année le traité de Fès a-t-il été signé, marquant le début du Protectorat français au Maroc ?', a:['1905','1912','1921','1930'], c:1},
-      {q:'Quel souverain est considéré comme un symbole central de la lutte pour l’indépendance marocaine au XXe siècle ?', a:['Hassan II','Mohammed V','Abd al-Rahman','Yusuf'], c:1},
-      {q:'Quelle est la couleur dominante du drapeau national marocain ?', a:['Vert','Bleu','Rouge','Blanc'], c:2},
-      {q:'Quel élément héraldique figure au centre du drapeau marocain ?', a:['Cercle','Étoile à cinq branches verte','Croix rouge','Croissant blanc'], c:1},
-      {q:'La période immédiatement après la Seconde Guerre mondiale se caractérise au Maroc par :', a:['Une stabilisation politique complète','Un réveil national et des mouvements pour la décolonisation','Une régression des mouvements nationaux','Une augmentation exclusive des échanges commerciaux'], c:1},
-      {q:'Quelle date est généralement associée à la reconnaissance de l’indépendance vis-à-vis de la France ?', a:['2 mars 1956','5 mai 1955','11 novembre 1918','1 janvier 1950'], c:0},
-      {q:'Quel événement en 1953 a renforcé la mobilisation nationale marocaine ?', a:['La signature du traité de paix','L’exil du Sultan Mohammed V','L’adoption d’une nouvelle constitution','La visite d’un souverain étranger'], c:1},
-      {q:'Parmi les éléments suivants, lequel n’est pas une source primaire historique ?', a:['Photographies d’époque','Journaux contemporains','Un article universitaire publié en 2020','Affiches de propagande de l’époque'], c:2},
-      {q:'Quel est le rôle principal des archives nationales ?', a:['Modifier l’histoire','Conserver et rendre accessible les documents historiques','Commercialiser des documents','Ignorer les sources orales'], c:1},
-      {q:'Quel est l’objectif pédagogique des commémorations nationales ?', a:['Oublier des événements','Rendre hommage et transmettre la mémoire collective','Créer des mythes politiques','Supprimer des archives'], c:1},
-      {q:'Les mouvements nationalistes marocains se sont principalement structurés au cours de :', a:['XIXe siècle','XXe siècle','XVIIIe siècle','XVIIe siècle'], c:1},
-      {q:'Quel peuple autochtone a contribué historiquement à la culture du Maroc avant la colonisation moderne ?', a:['Amazighs (Berbères)','Vikings','Inuits','Saxons'], c:0},
-      {q:'Quel défi majeur a concerné le Maroc après l’indépendance ?', a:['La construction d’institutions stables','La perte immédiate de toute langue','La disparition des traditions','Une emigration totale'], c:0},
-      {q:'Quelle langue est fréquemment utilisée dans les archives et les recherches historiques au Maroc ?', a:['Français, arabe et amazigh','Seulement l’arabe','Seulement l’anglais','Seulement l’espagnol'], c:0},
-      {q:'Quel acte diplomatique a préparé la reconnaissance de l’indépendance en 1956 ?', a:['Un traité commercial','Des conventions et accords entre la France et le Maroc','Un accord militaire','Une proclamation unilatérale par un pays tiers'], c:1},
-      {q:'La participation populaire aux commémorations signifie généralement :', a:['Indifférence totale','Attachement à la mémoire collective','Révision immédiate de l’histoire','Hostilité systématique'], c:1},
-      {q:'Les archives numériques modernes permettent :', a:['Perdre l’accès aux documents','Faciliter l’accès et la recherche','Remplacer totalement l’archive physique sans précautions','Cacher les sources'], c:1},
-      {q:'Quelle institution conserve souvent les affiches et documents visuels d’époque ?', a:['Musées et archives nationales','Stations-service','Banques','Restaurants'], c:0},
-      {q:'Quel est l’intérêt d’utiliser des sources primaires pour l’enseignement ?', a:['Permettre l’analyse critique et la vérification','Créer des récits non vérifiables','Ignorer le témoignage direct','Éviter la recherche'], c:0},
-      {q:'Quel événement international a influencé les mouvements de décolonisation en Afrique du Nord ?', a:['La Première Guerre mondiale','La Seconde Guerre mondiale','La guerre de Corée','La guerre froide uniquement'], c:1},
-      {q:'Quel rôle la presse a-t-elle joué dans les mouvements nationalistes ?', a:['Aucun rôle','Diffusion d’idées et mobilisation','Uniquement divertissement','Propagande étrangère exclusive'], c:1},
-      {q:'Pourquoi est-il important de citer les sources dans un travail historique ?', a:['Pour augmenter la longueur du texte','Pour permettre la vérification et la crédibilité','Pour empêcher la lecture','Pour rendre le texte confidentiel'], c:1},
-      {q:'Après l’indépendance, quelle priorité est souvent mise en avant par les États nouvellement indépendants ?', a:['Consolider les institutions et la souveraineté','Abandonner l’éducation','Supprimer la culture locale','Interdire l’économie'], c:0},
-      {q:'Quelles ressources peuvent enrichir une exposition pédagogique sur l’indépendance ?', a:['Documents d’archives, photos, témoignages, cartes et analyses','Rien','Uniquement vidéos modernes','Seulement objets non-historiques'], c:0}
-    ];
-
-    // Quiz UI logic (professionnel)
-    const overlay = document.getElementById('overlay');
-    const quizBody = document.getElementById('quizBody');
-    const currentEl = document.getElementById('current');
-    const totalEl = document.getElementById('total');
-    const scoreEl = document.getElementById('score');
-    const total = questions.length; totalEl.textContent = total; document.getElementById('qcount').textContent = total;
-    let idx = 0; let answers = Array(total).fill(null);
-
-    // load saved answers
-    const saved = localStorage.getItem('dossier_quiz_answers');
-    if(saved){ try{ const obj=JSON.parse(saved); if(obj.answers && obj.answers.length===total){ answers=obj.answers; } }catch(e){}
-    }
-
-    function renderQuestion(i){
-      const q = questions[i];
-      currentEl.textContent = i+1;
-      quizBody.innerHTML = `
-        <div class="question-row">
-          <div style="font-weight:700">Q${i+1}. ${q.q}</div>
-          <div class="options">${q.a.map((opt,oi)=>`<div class="option" data-idx="${oi}">${String.fromCharCode(65+oi)}. ${opt}</div>`).join('')}</div>
-        </div>
-      `;
-      const opts = quizBody.querySelectorAll('.option');
-      opts.forEach(o=>{
-        o.addEventListener('click',()=>{
-          opts.forEach(x=>x.classList.remove('selected'));
-          o.classList.add('selected');
-          answers[i]=parseInt(o.getAttribute('data-idx'));
-          saveProgress();
-        });
-      });
-      if(answers[i]!==null){ const chosen = quizBody.querySelector(`.option[data-idx='${answers[i]}']`); if(chosen) chosen.classList.add('selected'); }
-    }
-
-    function saveProgress(){ try{ localStorage.setItem('dossier_quiz_answers', JSON.stringify({answers, time:Date.now()})); }catch(e){} }
-
-    function openQuiz(){ overlay.style.display='flex'; renderQuestion(idx); updateScorePreview(); }
-    function closeQuiz(){ overlay.style.display='none'; }
-
-    function updateScorePreview(){ let preview=0; for(let i=0;i<total;i++){ if(answers[i]===questions[i].c) preview++; } scoreEl.textContent = preview + ' / ' + total; }
-
-    document.getElementById('openQuiz').addEventListener('click',openQuiz);
-    document.getElementById('openQuizTop').addEventListener('click',openQuiz);
-    document.getElementById('closeQuiz').addEventListener('click',closeQuiz);
-    document.getElementById('prevBtn').addEventListener('click',()=>{ if(idx>0){ idx--; renderQuestion(idx); } });
-    document.getElementById('nextBtn').addEventListener('click',()=>{
-      if(idx<total-1){ idx++; renderQuestion(idx); }
-      else {
-        // finish
-        let score=0; const details=[];
-        for(let i=0;i<total;i++){ const correct=questions[i].c; const given=answers[i]; if(given===correct) score++; details.push({q:questions[i].q, correct:questions[i].a[correct], given: given===null? '—': questions[i].a[given], ok: given===correct}); }
-        // store best
-        try{ const best=parseInt(localStorage.getItem('dossier_quiz_best')||'0'); if(score>best) localStorage.setItem('dossier_quiz_best', score); }catch(e){}
-        // show final dashboard and reveal answers
-        overlay.style.display='flex';
-        quizBody.innerHTML = `<h3>Résultats finaux</h3><p>Score final : <strong>${score}</strong> / <strong>${total}</strong></p><p class=\"small\">Meilleur score local enregistré : <strong>${localStorage.getItem('dossier_quiz_best')||score}</strong></p><div style=\"margin-top:12px;max-height:400px;overflow:auto;padding-right:6px\">${details.map((d,i)=>`<div style=\"padding:10px;border-radius:8px;margin-bottom:8px;background:#fff;border:1px solid #eef2f7\"><strong>Q${i+1}:</strong> ${d.q}<br><span class=\"small\">Votre réponse: <strong>${d.given}</strong> • Réponse correcte: <strong>${d.correct}</strong> — ${d.ok?'<strong style=\"color:green\">Correct</strong>':'<strong style=\"color:red\">Incorrect</strong>'}</span></div>`).join('')}</div>
-        <div style=\"margin-top:12px\"><button class='btn' id='retake'>Recommencer</button> <button class='btn secondary' id='export'>Exporter résultats</button> <button class='btn secondary' id='closeNow'>Fermer</button></div>`;
-        document.getElementById('retake').addEventListener('click',()=>{ answers=Array(total).fill(null); idx=0; saveProgress(); renderQuestion(idx); updateScorePreview(); });
-        document.getElementById('closeNow').addEventListener('click',closeQuiz);
-        document.getElementById('export').addEventListener('click',()=>{ const data={score,total,details,date:new Date().toISOString()}; const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='resultats_quiz_dossier_independance.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
-      }
-      updateScorePreview();
-    });
-
-    // keyboard navigation
-    document.addEventListener('keydown',(e)=>{ if(overlay.style.display==='flex'){ if(e.key==='ArrowRight') document.getElementById('nextBtn').click(); if(e.key==='ArrowLeft') document.getElementById('prevBtn').click(); } });
-
-    // initial preview
-    updateScorePreview();
-  </script>
 </body>
 </html>
