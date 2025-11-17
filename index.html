@@ -108,7 +108,11 @@
       <section class="card w6">
         <h3>Galerie - Photos & affiches</h3>
         <div class="photos">
-          <div class="col2"><img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Photo historique 1"></div>
+          <div class="col2"><img src="https://via.placeholder.com/800x450?text=Portrait+du+Roi+Hassan+II+%28remplacer%29" alt="Portrait du Roi Hassan II (remplacer)"></div>
+          <div class="col2"><img src="https://source.unsplash.com/1600x900/?morocco,flag" alt="Drapeau du Maroc - style"></div>
+          <div class="col2"><img src="https://source.unsplash.com/1600x900/?morocco,architecture" alt="Architecture marocaine"></div>
+          <div class="col2"><img src="https://source.unsplash.com/1600x900/?morocco,ceremony" alt="Cérémonie au Maroc"></div>
+        </div>
           <div class="col2"><img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Photo historique 2"></div>
           <div class="col2"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Photo cérémonie"></div>
           <div class="col2"><img src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Affiche commémorative"></div>
@@ -168,6 +172,7 @@
         <div>
           <h3 id="quizTitle">Quiz : Histoire et traditions (25 Q)</h3>
           <div class="small">Question <span id="current">1</span> / <span id="total">25</span> — Score : <span id="score">0</span></div>
+          <div style="margin-top:6px"><progress id="progress" value="0" max="25" style="width:260px;height:10px;border-radius:6px"></progress></div>
         </div>
         <div>
           <button class="big-button" id="closeQuiz">Fermer</button>
@@ -233,21 +238,30 @@
       {q:'Qu’est-ce qui peut enrichir une exposition sur l’indépendance?', a:['Photos, témoignages, cartes et documents','Rien','Uniquement des vidéos modernes','Uniquement des objets de fantaisie'], c:0}
     ];
 
-    // Quiz UI logic
+    // Quiz UI logic with enhanced features
     const overlay = document.getElementById('overlay');
     const quizBody = document.getElementById('quizBody');
     const currentEl = document.getElementById('current');
     const totalEl = document.getElementById('total');
     const scoreEl = document.getElementById('score');
+    const progressEl = document.getElementById('progress');
     const total = questions.length; totalEl.textContent = total; document.getElementById('qcount').textContent = total;
     let idx = 0; let score = 0; let answers = Array(total).fill(null);
+
+    // load saved answers if exist
+    const saved = localStorage.getItem('fete_quiz_answers');
+    if(saved){ try{ const obj = JSON.parse(saved); if(obj.answers && obj.answers.length===total){ answers=obj.answers; } }catch(e){} }
 
     function renderQuestion(i){
       const q = questions[i];
       currentEl.textContent = i+1;
+      progressEl.value = i+1;
       quizBody.innerHTML = `
-        <div class="question">${q.q}</div>
-        <div class="options">${q.a.map((opt,oi)=>`<div class="option" data-idx="${oi}">${String.fromCharCode(65+oi)}. ${opt}</div>`).join('')}</div>
+        <div style="display:flex;gap:14px;align-items:center">
+          <div style="width:140px"><img src=\"https://source.unsplash.com/300x200/?morocco,history,archive\" style=\"width:100%;height:90px;object-fit:cover;border-radius:8px\"></div>
+          <div style=\"flex:1\"><div class=\"question\">${q.q}</div>
+            <div class=\"options\">${q.a.map((opt,oi)=>`<div class=\"option\" data-idx=\"${oi}\">${String.fromCharCode(65+oi)}. ${opt}</div>`).join('')}</div></div>
+        </div>
       `;
       // restore selection
       const opts = quizBody.querySelectorAll('.option');
@@ -256,6 +270,7 @@
           opts.forEach(x=>x.classList.remove('selected'));
           o.classList.add('selected');
           answers[i]=parseInt(o.getAttribute('data-idx'));
+          saveProgress();
         });
       });
       // if already answered, select
@@ -265,8 +280,17 @@
       }
     }
 
-    function openQuiz(){ overlay.style.display='flex'; renderQuestion(idx); }
+    function saveProgress(){
+      try{ localStorage.setItem('fete_quiz_answers', JSON.stringify({answers, time:Date.now()})); }catch(e){}
+    }
+
+    function openQuiz(){ overlay.style.display='flex'; renderQuestion(idx); updateScorePreview(); }
     function closeQuiz(){ overlay.style.display='none'; }
+
+    function updateScorePreview(){
+      let preview=0; for(let i=0;i<total;i++){ if(answers[i]===questions[i].c) preview++; }
+      scoreEl.textContent = preview + ' / ' + total;
+    }
 
     document.getElementById('openQuiz').addEventListener('click',openQuiz);
     document.getElementById('openQuizTop').addEventListener('click',openQuiz);
@@ -275,24 +299,51 @@
       if(idx>0){ idx--; renderQuestion(idx); }
     });
     document.getElementById('nextBtn').addEventListener('click',()=>{
-      // save current selection already handled
+      // if last and finish
       if(idx<total-1){ idx++; renderQuestion(idx); }
-      else { // finish
+      else { // finish and show detailed results + dashboard
         // compute score
-        score = 0; for(let i=0;i<total;i++){ if(answers[i]===questions[i].c) score++; }
+        score = 0; const details = [];
+        for(let i=0;i<total;i++){ const correct = questions[i].c; const given = answers[i]; if(given===correct) score++; details.push({q:questions[i].q, correct:questions[i].a[correct], given: given===null? '—': questions[i].a[given], ok: given===correct}); }
         scoreEl.textContent = score + ' / ' + total;
-        // show simple dashboard
-        quizBody.innerHTML = `<h3>Résultats</h3><p>Vous avez obtenu <strong>${score}</strong> réponses correctes sur <strong>${total}</strong>.</p><p class="small">Détails : cochez chaque question pour revoir la bonne réponse (non interactif ici).</p><div style="margin-top:12px"><button class='big-button' id='retake'>Recommencer</button> <button class='big-button' id='closeNow'>Fermer</button></div>`;
-        document.getElementById('retake').addEventListener('click',()=>{answers=Array(total).fill(null); idx=0; score=0; scoreEl.textContent='0'; renderQuestion(idx);});
+        // record best score
+        try{
+          const best = parseInt(localStorage.getItem('fete_quiz_best')||'0');
+          if(score>best) localStorage.setItem('fete_quiz_best', score);
+        }catch(e){}
+
+        // build dashboard
+        quizBody.innerHTML = `<h3>Résultats</h3>
+          <p>Vous avez obtenu <strong>${score}</strong> réponses correctes sur <strong>${total}</strong>.</p>
+          <p class=\"small\">Meilleur score (local) : <strong>${localStorage.getItem('fete_quiz_best')||score}</strong></p>
+          <div style=\"margin-top:12px;max-height:300px;overflow:auto;padding-right:6px\">${details.map((d,i)=>`<div style=\"padding:10px;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)\"><strong>Q${i+1}:</strong> ${d.q}<br><span class=\"small\">Votre réponse: <strong>${d.given}</strong> • Bonne réponse: <strong>${d.correct}</strong> — ${d.ok?'<span style=\"color:#7ad07a\">Correct</span>':'<span style=\"color:#ff7a7a\">Faux</span>'}</span></div>`).join('')}</div>
+          <div style=\"margin-top:12px\"><button class='big-button' id='retake'>Recommencer</button> <button class='big-button' id='export'>Exporter résultats</button> <button class='big-button' id='closeNow'>Fermer</button></div>`;
+
+        document.getElementById('retake').addEventListener('click',()=>{answers=Array(total).fill(null); idx=0; score=0; scoreEl.textContent='0'; saveProgress(); renderQuestion(idx);});
         document.getElementById('closeNow').addEventListener('click',closeQuiz);
+        document.getElementById('export').addEventListener('click',()=>{
+          const data = {score, total, details, date: new Date().toISOString()};
+          const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a'); a.href=url; a.download='resultats_quiz_fete_independance.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        });
       }
+      updateScorePreview();
     });
 
     // close on overlay click outside quiz
     overlay.addEventListener('click',(e)=>{ if(e.target===overlay) closeQuiz(); });
 
-    // open from top button when first loaded
-    // (no auto open to be polite)
+    // helpful keyboard shortcuts
+    document.addEventListener('keydown',(e)=>{
+      if(overlay.style.display==='flex'){
+        if(e.key==='ArrowRight') document.getElementById('nextBtn').click();
+        if(e.key==='ArrowLeft') document.getElementById('prevBtn').click();
+      }
+    });
+
+    // initial preview of saved progress
+    updateScorePreview();
   </script>
 </body>
 </html>
